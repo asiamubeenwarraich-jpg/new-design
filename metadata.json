@@ -1,0 +1,6 @@
+{
+  "name": "calligraphy__by_ulain8261 - Art Gallery",
+  "description": "Original paintings and artwork collection crafted to bring character, color, and emotion into your space.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
