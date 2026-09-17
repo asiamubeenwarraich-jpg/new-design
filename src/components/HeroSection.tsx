@@ -112,7 +112,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* ================= MAIN CONTENT (CENTER-LEFT POSITIONED) ================= */}
-      <main className="relative z-20 w-full flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 max-w-7xl mx-auto py-12 sm:py-20">
+      <main className="relative z-20 w-full flex-1 flex flex-col justify-center px-4 sm:px-10 lg:px-14 max-w-[1400px] mx-auto py-10 sm:py-20">
         <div className="max-w-3xl">
           {/* Large Bold Modern Heading */}
           <motion.h1
@@ -120,7 +120,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[-0.03em] leading-[0.96] text-[#141416] mb-6 sm:mb-8 uppercase"
+            className="font-display font-black text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[-0.03em] leading-[1.05] sm:leading-[0.96] text-[#141416] mb-5 sm:mb-8 uppercase break-words"
           >
             <span className="block">{headingLine1}</span>
             <span className="block text-[#1E1E20] mt-1 sm:mt-2">{headingLine2}</span>
@@ -132,7 +132,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg md:text-xl text-[#4A4A4D] font-normal leading-relaxed max-w-xl mb-8 sm:mb-12 font-sans"
+            className="text-sm sm:text-lg md:text-xl text-[#4A4A4D] font-normal leading-relaxed max-w-xl mb-7 sm:mb-12 font-sans"
           >
             {subheading}
           </motion.p>
@@ -143,16 +143,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-5"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 w-full sm:w-auto"
           >
             {/* Button 1: SHOP PAINTINGS */}
             <button
               id="hero-button-shop"
               type="button"
               onClick={() => handleAction('shop')}
-              className="group relative inline-flex items-center justify-center px-8 sm:px-9 py-4 sm:py-4.5 text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#141416] uppercase bg-transparent border border-[#141416] rounded-none transition-all duration-300 ease-out hover:bg-[#141416] hover:text-white active:scale-[0.98] cursor-pointer"
+              className="group relative inline-flex items-center justify-center w-full sm:w-auto min-h-[48px] px-8 sm:px-9 py-3.5 sm:py-4.5 text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#141416] uppercase bg-transparent border border-[#141416] rounded-none transition-all duration-300 ease-out hover:bg-[#141416] hover:text-white active:scale-[0.98] cursor-pointer"
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2">
                 <ShoppingBag className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
                 <span>{buttonPrimaryText}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
@@ -164,9 +164,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               id="hero-button-view-collection"
               type="button"
               onClick={() => handleAction('view')}
-              className="group relative inline-flex items-center justify-center px-8 sm:px-9 py-4 sm:py-4.5 text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#141416] uppercase bg-transparent border border-[#8E8E93] hover:border-[#141416] rounded-none transition-all duration-300 ease-out hover:bg-[#141416] hover:text-white active:scale-[0.98] cursor-pointer"
+              className="group relative inline-flex items-center justify-center w-full sm:w-auto min-h-[48px] px-8 sm:px-9 py-3.5 sm:py-4.5 text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#141416] uppercase bg-transparent border border-[#8E8E93] hover:border-[#141416] rounded-none transition-all duration-300 ease-out hover:bg-[#141416] hover:text-white active:scale-[0.98] cursor-pointer"
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2">
                 <Eye className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
                 <span>{buttonSecondaryText}</span>
               </span>
@@ -181,9 +181,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
-          className="fixed bottom-6 right-6 z-50 bg-[#141416] text-white px-6 py-3 shadow-2xl text-xs font-semibold tracking-widest uppercase flex items-center gap-3 border border-neutral-800"
+          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 bg-[#141416] text-white px-5 py-3 shadow-2xl text-xs font-semibold tracking-widest uppercase flex items-center gap-3 border border-neutral-800"
         >
-          <div className="w-2 h-2 rounded-full bg-emerald-400" />
+          <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
           <span>{toastMessage}</span>
         </motion.div>
       )}

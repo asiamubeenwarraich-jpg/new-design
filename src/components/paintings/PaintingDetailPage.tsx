@@ -167,7 +167,7 @@ export const PaintingDetailPage: React.FC<PaintingDetailPageProps> = ({
       {toastMessage && (
         <div 
           id="gallery-notification-toast"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 bg-[#111111] text-white text-xs font-medium tracking-wider uppercase rounded-[2px] shadow-xl border border-[#333333] animate-fade-in"
+          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-3.5 bg-[#111111] text-white text-xs font-medium tracking-wider uppercase rounded-[2px] shadow-xl border border-[#333333] animate-fade-in"
           role="status"
           aria-live="polite"
         >

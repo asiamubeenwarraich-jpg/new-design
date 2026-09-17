@@ -1,11 +1,39 @@
 @import "tailwindcss";
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #141416;
     background-color: #F7F7F8;
     letter-spacing: 0.01em;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  p, h1, h2, h3, h4, h5, h6, span, a, button, label {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 }
 
@@ -15,6 +43,15 @@
 
 .font-editorial {
   font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Hide scrollbars for clean carousels while allowing touch scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @keyframes subtleZoom {
@@ -29,3 +66,4 @@
 .animate-subtle-zoom {
   animation: subtleZoom 24s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
 }
+

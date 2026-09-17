@@ -18,13 +18,13 @@ export const PaintingTabs: React.FC<PaintingTabsProps> = ({ painting }) => {
   return (
     <div id="painting-tabs-section" className="w-full flex flex-col space-y-6 pt-6">
       {/* Tab Navigation */}
-      <div className="flex border-b border-[#E5E5E5] gap-6 sm:gap-8" role="tablist">
+      <div className="flex border-b border-[#E5E5E5] gap-4 sm:gap-8 overflow-x-auto no-scrollbar whitespace-nowrap" role="tablist">
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === 'description'}
           onClick={() => setActiveTab('description')}
-          className={`pb-3 text-xs sm:text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-150 cursor-pointer relative ${
+          className={`pb-3 text-xs sm:text-sm font-semibold tracking-[0.14em] sm:tracking-[0.16em] uppercase transition-all duration-150 cursor-pointer relative shrink-0 ${
             activeTab === 'description'
               ? 'text-[#111111]'
               : 'text-[#888888] hover:text-[#111111]'
@@ -41,7 +41,7 @@ export const PaintingTabs: React.FC<PaintingTabsProps> = ({ painting }) => {
           role="tab"
           aria-selected={activeTab === 'details'}
           onClick={() => setActiveTab('details')}
-          className={`pb-3 text-xs sm:text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-150 cursor-pointer relative ${
+          className={`pb-3 text-xs sm:text-sm font-semibold tracking-[0.14em] sm:tracking-[0.16em] uppercase transition-all duration-150 cursor-pointer relative shrink-0 ${
             activeTab === 'details'
               ? 'text-[#111111]'
               : 'text-[#888888] hover:text-[#111111]'
@@ -58,7 +58,7 @@ export const PaintingTabs: React.FC<PaintingTabsProps> = ({ painting }) => {
           role="tab"
           aria-selected={activeTab === 'shipping'}
           onClick={() => setActiveTab('shipping')}
-          className={`pb-3 text-xs sm:text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-150 cursor-pointer relative ${
+          className={`pb-3 text-xs sm:text-sm font-semibold tracking-[0.14em] sm:tracking-[0.16em] uppercase transition-all duration-150 cursor-pointer relative shrink-0 ${
             activeTab === 'shipping'
               ? 'text-[#111111]'
               : 'text-[#888888] hover:text-[#111111]'

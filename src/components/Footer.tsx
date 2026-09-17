@@ -98,8 +98,8 @@ export const Footer: React.FC<FooterProps> = ({
       role="contentinfo"
       aria-label="Art Gallery Website Footer"
     >
-      {/* Container with ~1400px maximum width and 60-70px padding */}
-      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16">
+      {/* Container with ~1400px maximum width and responsive padding */}
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-10 lg:px-14 xl:px-16">
         
         {/* ================= 4-COLUMN MAIN CONTENT GRID ================= */}
         {/* Responsive layout: 1 col on mobile, 2 cols on tablet, 4 cols on desktop */}

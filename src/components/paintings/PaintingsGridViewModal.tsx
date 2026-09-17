@@ -25,20 +25,20 @@ export const PaintingsGridViewModal: React.FC<PaintingsGridViewModalProps> = ({
       aria-labelledby="collection-view-heading"
     >
       {/* Sticky Header */}
-      <header className="sticky top-0 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E5E5] px-6 sm:px-12 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3 sm:gap-4">
+      <header className="sticky top-0 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E5E5E5] px-4 sm:px-12 py-3.5 sm:py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 pr-2">
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 -ml-1 text-[#111111] hover:text-[#777777] transition-colors cursor-pointer"
+            className="p-1.5 -ml-1 text-[#111111] hover:text-[#777777] transition-colors cursor-pointer shrink-0"
             aria-label="Back to gallery home"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <div className="w-4 h-[1.5px] bg-[#111111]" aria-hidden="true" />
+          <div className="w-4 h-[1.5px] bg-[#111111] shrink-0" aria-hidden="true" />
           <h2
             id="collection-view-heading"
-            className="text-base sm:text-lg font-bold tracking-[0.12em] uppercase text-[#111111]"
+            className="text-sm sm:text-lg font-bold tracking-[0.12em] uppercase text-[#111111] truncate"
           >
             {title} ({paintings.length})
           </h2>
@@ -47,7 +47,7 @@ export const PaintingsGridViewModal: React.FC<PaintingsGridViewModalProps> = ({
         <button
           type="button"
           onClick={onClose}
-          className="p-2 rounded-full border border-[#E5E5E5] text-[#111111] hover:bg-[#111111] hover:text-white transition-all cursor-pointer"
+          className="p-2 rounded-full border border-[#E5E5E5] text-[#111111] hover:bg-[#111111] hover:text-white transition-all cursor-pointer shrink-0"
           aria-label="Close"
         >
           <X className="w-4 h-4" />
@@ -55,7 +55,7 @@ export const PaintingsGridViewModal: React.FC<PaintingsGridViewModalProps> = ({
       </header>
 
       {/* Main Grid Content */}
-      <main className="flex-1 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
+      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-10 lg:px-14 py-8 sm:py-14">
         <div className="mb-8">
           <p className="text-sm text-[#777777] max-w-xl">
             Curated catalogue of original artworks. Each painting is an individual physical creation accompanied by a signed Certificate of Authenticity.

@@ -27,14 +27,39 @@ export const PaintingGallery: React.FC<PaintingGalleryProps> = ({
   const displayImages = images && images.length > 0 ? images : ['/images/paintings/coastal-serenity-1.jpg'];
   const currentImage = displayImages[activeIndex] || displayImages[0];
 
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePrev = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     setActiveIndex((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1));
   };
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNext = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     setActiveIndex((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1));
+  };
+
+  // Touch / Swipe support for main image canvas
+  const touchStartX = React.useRef<number | null>(null);
+  const touchEndX = React.useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    const threshold = 40;
+    if (diff > threshold) {
+      handleNext();
+    } else if (diff < -threshold) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
   };
 
   return (
@@ -80,10 +105,13 @@ export const PaintingGallery: React.FC<PaintingGalleryProps> = ({
       </div>
 
       {/* ================= MAIN LARGE PAINTING CANVAS (DESKTOP & MOBILE) ================= */}
-      <div className="flex-1 w-full flex flex-col">
+      <div className="flex-1 w-full min-w-0 flex flex-col">
         <div 
           id="painting-main-canvas"
-          className="relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] max-h-[720px] bg-[#FBFBFA] border border-[#EBEBEB] rounded-[2px] overflow-hidden flex items-center justify-center p-4 sm:p-8 select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          className="relative w-full aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] max-h-[720px] bg-[#FBFBFA] border border-[#EBEBEB] rounded-[2px] overflow-hidden flex items-center justify-center p-3 sm:p-8 select-none"
         >
           {/* Main Artwork Presentation (strictly object-fit contain, no distortion, no overlay icons) */}
           {!imgError[activeIndex] ? (
@@ -108,16 +136,16 @@ export const PaintingGallery: React.FC<PaintingGalleryProps> = ({
             <>
               <button
                 type="button"
-                onClick={handlePrev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-[#111111] border border-[#E5E5E5] flex items-center justify-center shadow-xs hover:scale-105 transition-all cursor-pointer z-10"
+                onClick={(e) => handlePrev(e)}
+                className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-[#111111] border border-[#E5E5E5] flex items-center justify-center shadow-xs hover:scale-105 transition-all cursor-pointer z-10"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
               </button>
               <button
                 type="button"
-                onClick={handleNext}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-[#111111] border border-[#E5E5E5] flex items-center justify-center shadow-xs hover:scale-105 transition-all cursor-pointer z-10"
+                onClick={(e) => handleNext(e)}
+                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-[#111111] border border-[#E5E5E5] flex items-center justify-center shadow-xs hover:scale-105 transition-all cursor-pointer z-10"
                 aria-label="Next image"
               >
                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />

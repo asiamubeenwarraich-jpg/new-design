@@ -36,14 +36,15 @@ export const Navbar: React.FC<NavbarProps> = ({
       className="w-full bg-[#F7F7F8] border-b border-[#E5E5E8] text-[#141416] relative z-30 select-none"
       aria-label="Main Site Navigation"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 h-18 flex items-center justify-between">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-10 lg:px-14 h-16 sm:h-18 flex items-center justify-between">
         {/* Brand Name */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center min-w-0 pr-2">
           <a 
             id="nav-brand-link"
             href="/"
             onClick={handleBrandClick}
-            className="text-xs sm:text-sm md:text-base font-semibold tracking-[0.25em] text-[#141416] hover:text-[#4A4A4D] transition-colors uppercase"
+            className="text-[11px] xs:text-xs sm:text-sm md:text-base font-semibold tracking-[0.16em] sm:tracking-[0.25em] text-[#141416] hover:text-[#4A4A4D] transition-colors uppercase truncate max-w-[170px] xs:max-w-[220px] sm:max-w-none"
+            title={brandName}
           >
             {brandName}
           </a>
@@ -65,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Utility Actions */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2 sm:gap-5 shrink-0">
           <button 
             id="nav-search-button"
             type="button" 
@@ -104,12 +105,45 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-[#E5E5E8] bg-[#F7F7F8] px-6 py-6 space-y-4 text-xs tracking-[0.2em] uppercase text-[#4A4A4D]">
-          <a href="#paintings" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#141416]">Paintings</a>
-          <a href="#collections" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#141416]">Collections</a>
-          <a href="#calligraphy" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#141416]">Calligraphy</a>
-          <a href="#exhibitions" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#141416]">Exhibitions</a>
-          <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-[#141416]">The Artist</a>
+        <div className="lg:hidden border-t border-[#E5E5E8] bg-[#F7F7F8] px-4 py-4 space-y-1 text-xs tracking-[0.2em] uppercase text-[#4A4A4D] shadow-lg animate-in fade-in duration-150">
+          <a 
+            href="#paintings" 
+            onClick={(e) => {
+              setMobileMenuOpen(false);
+              handlePaintingsClick(e);
+            }} 
+            className="flex items-center min-h-[48px] px-2 hover:bg-white hover:text-[#141416] transition-colors"
+          >
+            Paintings
+          </a>
+          <a 
+            href="#collections" 
+            onClick={() => setMobileMenuOpen(false)} 
+            className="flex items-center min-h-[48px] px-2 hover:bg-white hover:text-[#141416] transition-colors"
+          >
+            Collections
+          </a>
+          <a 
+            href="#calligraphy" 
+            onClick={() => setMobileMenuOpen(false)} 
+            className="flex items-center min-h-[48px] px-2 hover:bg-white hover:text-[#141416] transition-colors"
+          >
+            Calligraphy
+          </a>
+          <a 
+            href="#exhibitions" 
+            onClick={() => setMobileMenuOpen(false)} 
+            className="flex items-center min-h-[48px] px-2 hover:bg-white hover:text-[#141416] transition-colors"
+          >
+            Exhibitions
+          </a>
+          <a 
+            href="#about" 
+            onClick={() => setMobileMenuOpen(false)} 
+            className="flex items-center min-h-[48px] px-2 hover:bg-white hover:text-[#141416] transition-colors"
+          >
+            The Artist
+          </a>
         </div>
       )}
     </nav>
