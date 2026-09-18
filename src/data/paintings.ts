@@ -1,4 +1,4 @@
-export type PaintingAvailability = 'available' | 'sold_out' | 'NEW' | 'SOLD_OUT';
+export type PaintingAvailability = 'available' | 'sold_out' | 'NEW' | 'SOLD_OUT' | 'AVAILABLE' | 'DRAFT';
 
 export interface Painting {
   id: string;
@@ -7,6 +7,7 @@ export interface Painting {
   artist: string;
   price: number;
   originalPrice?: number;
+  salePrice?: number;
   formattedPrice: string;
   currency?: string;
   status: PaintingAvailability;
@@ -18,11 +19,19 @@ export interface Painting {
   medium: string;
   style?: string;
   category: string;
+  categoryId?: string;
+  subcategory?: string;
   year: string | number;
   frame?: string;
   type?: string;
+  artworkType?: 'ORIGINAL' | 'LIMITED_EDITION' | 'PRINT' | 'MINIATURE' | 'OTHER';
+  stockQuantity?: number;
+  featured?: boolean;
   isOriginal?: boolean;
   isGift?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 }
 
 export const NEW_PAINTINGS: Painting[] = [

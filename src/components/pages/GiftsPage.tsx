@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Painting } from '../../data/paintings';
 import { galleryDatabase } from '../../services/galleryDatabase';
 import { useCart } from '../../context/CartContext';
-import { Gift, ShoppingBag, ArrowRight, ShieldCheck, Heart, Sparkles, AlertCircle } from 'lucide-react';
+import { Gift, ShoppingBag, ArrowRight, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
 
 export interface GiftsPageProps {
   onNavigateHome: () => void;

@@ -11,6 +11,7 @@ export interface FooterProps {
   phone?: string;
   address?: string;
   onLinkClick?: (linkName: string) => void;
+  onNavigateAdmin?: () => void;
 }
 
 // Column 2: Customer Care Navigation Links
@@ -31,6 +32,7 @@ export const INFORMATION_LINKS = [
   { name: 'Privacy Policy', href: '#privacy' },
   { name: 'Terms & Conditions', href: '#terms' },
   { name: 'Payment Methods', href: '#payments' },
+  { name: 'Admin Dashboard', href: '/admin' },
 ];
 
 // Pinterest line icon component to match Lucide style
@@ -57,6 +59,7 @@ export const Footer: React.FC<FooterProps> = ({
   phone = "+92 300 1234567",
   address = "Islamabad, Pakistan",
   onLinkClick,
+  onNavigateAdmin,
 }) => {
   // Newsletter Form State & Feedback
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -86,6 +89,10 @@ export const Footer: React.FC<FooterProps> = ({
 
   const handleLink = (e: React.MouseEvent, name: string) => {
     e.preventDefault();
+    if (name === 'Admin Dashboard' && onNavigateAdmin) {
+      onNavigateAdmin();
+      return;
+    }
     if (onLinkClick) {
       onLinkClick(name);
     }

@@ -10,6 +10,8 @@ import { CartDrawer } from './components/cart/CartDrawer.tsx';
 import { CartPage } from './components/cart/CartPage.tsx';
 import { CheckoutPage, CheckoutStep } from './components/checkout/CheckoutPage.tsx';
 import { AdminQuickModal } from './components/admin/AdminQuickModal.tsx';
+import { AdminLayout } from './components/admin/AdminLayout.tsx';
+import { AdminLogin } from './components/admin/AdminLogin.tsx';
 import { AcquirePaintingsPage } from './components/pages/AcquirePaintingsPage.tsx';
 import { CollectionArchivePage } from './components/pages/CollectionArchivePage.tsx';
 import { NewPaintingsPage } from './components/pages/NewPaintingsPage.tsx';
@@ -21,14 +23,16 @@ import {
   Painting, 
   getPaintingBySlug 
 } from './data/paintings.ts';
-import { Pack } from './services/galleryDatabase.ts';
-import { Database } from 'lucide-react';
+import { Pack, galleryDatabase, AdminSession } from './services/galleryDatabase.ts';
+import { Database, ShieldCheck } from 'lucide-react';
 
 function GalleryApp() {
   const [currentPath, setCurrentPath] = useState<string>('/');
   const [selectedPainting, setSelectedPainting] = useState<Painting | null>(null);
   
   // Page Route States
+  const [isAdminPage, setIsAdminPage] = useState<boolean>(false);
+  const [adminSession, setAdminSession] = useState<AdminSession | null>(() => galleryDatabase.getAdminSession());
   const [isNewPaintingsPage, setIsNewPaintingsPage] = useState<boolean>(false);
   const [isSoldPaintingsPage, setIsSoldPaintingsPage] = useState<boolean>(false);
   const [isGiftsPage, setIsGiftsPage] = useState<boolean>(false);
@@ -47,6 +51,7 @@ function GalleryApp() {
   const { cartCount, openCart, addToCart } = useCart();
 
   const resetAllViews = () => {
+    setIsAdminPage(false);
     setSelectedPainting(null);
     setIsNewPaintingsPage(false);
     setIsSoldPaintingsPage(false);
@@ -65,7 +70,9 @@ function GalleryApp() {
       setCurrentPath(path);
       resetAllViews();
 
-      if (path.startsWith('/checkout')) {
+      if (path.startsWith('/admin')) {
+        setIsAdminPage(true);
+      } else if (path.startsWith('/checkout')) {
         setIsCheckoutPage(true);
         if (path === '/checkout/shipping') {
           setCheckoutStep('shipping');
@@ -105,6 +112,14 @@ function GalleryApp() {
   }, []);
 
   // Navigation handlers
+  const handleNavigateAdmin = () => {
+    resetAllViews();
+    setIsAdminPage(true);
+    setCurrentPath('/admin');
+    window.history.pushState(null, '', '/admin');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSelectPainting = (painting: Painting) => {
     resetAllViews();
     setSelectedPainting(painting);
@@ -210,6 +225,32 @@ function GalleryApp() {
     addToCart(pack as any, 1);
     openCart();
   };
+
+  if (isAdminPage) {
+    if (!adminSession) {
+      return (
+        <AdminLogin
+          onSuccess={(sess) => setAdminSession(sess)}
+          onBackToStore={handleNavigateHome}
+        />
+      );
+    }
+    return (
+      <AdminLayout
+        session={adminSession}
+        onLogout={() => {
+          galleryDatabase.logoutAdmin();
+          setAdminSession(null);
+        }}
+        onViewPublicStore={handleNavigateHome}
+        onViewProductPublic={(painting) => handleSelectPainting(painting)}
+        onNavigatePublicNew={handleNavigateNewPaintings}
+        onNavigatePublicSold={handleNavigateSoldPaintings}
+        onNavigatePublicGifts={handleNavigateGifts}
+        onNavigatePublicPacks={handleNavigatePacks}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F7F7F8] text-[#141416] flex flex-col selection:bg-[#141416] selection:text-white">
@@ -368,8 +409,11 @@ function GalleryApp() {
             email="hello@yourartgallery.com"
             phone="+92 300 1234567"
             address="Islamabad, Pakistan"
+            onNavigateAdmin={handleNavigateAdmin}
             onLinkClick={(linkName) => {
-              if (linkName === 'Art Collections' || linkName === 'Sold Paintings') {
+              if (linkName === 'Admin Dashboard') {
+                handleNavigateAdmin();
+              } else if (linkName === 'Art Collections' || linkName === 'Sold Paintings') {
                 handleNavigateSoldPaintings();
               } else if (linkName === 'Our Artists' || linkName === 'Shop' || linkName === 'Paintings' || linkName === 'New Paintings') {
                 handleNavigateNewPaintings();
@@ -388,16 +432,26 @@ function GalleryApp() {
       )}
 
       {/* Floating Admin & Database Control Trigger */}
-      <div className="fixed bottom-4 left-4 z-40">
+      <div className="fixed bottom-4 left-4 z-40 flex items-center gap-2">
+        <button
+          id="btn-open-admin-dashboard"
+          type="button"
+          onClick={handleNavigateAdmin}
+          className="px-3.5 py-2 bg-[#141416]/95 hover:bg-black text-white text-[11px] font-mono tracking-wider uppercase rounded-full shadow-lg border border-white/20 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-105"
+          title="Open Complete Admin Management System (/admin)"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Admin Portal</span>
+        </button>
+
         <button
           id="btn-open-admin-database"
           type="button"
           onClick={() => setIsAdminModalOpen(true)}
-          className="px-3 py-2 bg-[#141416]/95 hover:bg-black text-white text-[11px] font-mono tracking-wider uppercase rounded-full shadow-lg border border-white/20 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-105"
-          title="Open Art Gallery Database & Admin Controls"
+          className="p-2 bg-[#141416]/95 hover:bg-black text-white text-[11px] font-mono rounded-full shadow-lg border border-white/20 backdrop-blur-xs flex items-center justify-center cursor-pointer transition-transform hover:scale-105"
+          title="Quick Database Editor"
         >
           <Database className="w-3.5 h-3.5 text-amber-400" />
-          <span>Admin & Database</span>
         </button>
       </div>
 
