@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Painting, ALL_PAINTINGS } from '../../data/paintings';
+import { useCart } from '../../context/CartContext';
 import { PaintingGallery } from './PaintingGallery';
 import { PaintingInfo } from './PaintingInfo';
 import { PaintingDetails } from './PaintingDetails';
@@ -27,6 +28,7 @@ export const PaintingDetailPage: React.FC<PaintingDetailPageProps> = ({
   onAddToCartSuccess,
 }) => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const { addToCart, openCart } = useCart();
 
   // Scroll to top when painting changes
   useEffect(() => {
@@ -41,16 +43,26 @@ export const PaintingDetailPage: React.FC<PaintingDetailPageProps> = ({
   };
 
   const handleAddToCart = (quantity: number) => {
-    showToast(`Added ${quantity} × "${painting.title}" to your cart`);
-    if (onAddToCartSuccess) {
-      onAddToCartSuccess(painting, quantity);
+    const result = addToCart(painting, quantity);
+    if (result.success) {
+      showToast(result.message || `Added to cart`);
+      if (onAddToCartSuccess) {
+        onAddToCartSuccess(painting, quantity);
+      }
+    } else {
+      showToast(result.message);
     }
   };
 
   const handleBuyNow = (quantity: number) => {
-    showToast(`Proceeding to secure checkout for "${painting.title}"...`);
-    if (onAddToCartSuccess) {
-      onAddToCartSuccess(painting, quantity);
+    const result = addToCart(painting, quantity);
+    if (result.success) {
+      openCart();
+      if (onAddToCartSuccess) {
+        onAddToCartSuccess(painting, quantity);
+      }
+    } else {
+      showToast(result.message);
     }
   };
 
